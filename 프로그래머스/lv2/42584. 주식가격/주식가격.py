@@ -19,7 +19,7 @@ def solution(prices):
     else :
         # 나머지 있는 것들 다 저장
         while stack:
-            idx, price = stack.pop()
+            idx, _ = stack.pop()
             answer[idx] = i-idx
     
     return answer
