@@ -11,7 +11,6 @@ def solution(jobs):
     jobs.sort()
     jobs = deque(jobs)
     heap = []
-    heapq.heapify(heap)
     
     while True:
         
