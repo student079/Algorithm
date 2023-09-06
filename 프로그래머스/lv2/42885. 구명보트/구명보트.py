@@ -4,7 +4,6 @@ def solution(people, limit):
     cnt = 0
     people.sort()
     people = deque(people)
-    #left, right = 0, len(people) -1
     
     cLimit = limit
     while people:
