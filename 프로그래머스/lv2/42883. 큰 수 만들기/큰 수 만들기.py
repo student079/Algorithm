@@ -7,4 +7,4 @@ def solution(number, k):
             k -= 1
         stack.append(num)
         
-    return "".join(stack[:len(stack) - k])
+    return "".join(stack[:len(stack) - k]) # 뒤부분 자르기
