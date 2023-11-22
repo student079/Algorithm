@@ -1,7 +1,6 @@
 from collections import deque
 
 def solution(places):
-    answer = []
     dx = (0,1,0,-1)
     dy = (1,0,-1,0)
     
@@ -9,8 +8,7 @@ def solution(places):
         visited = [[False] * 5 for _ in range(5)]
         x, y = pos
         visited[x][y] = True
-        q = deque()
-        q.append((pos, 0))
+        q = deque([(pos,0)])
         while q:
             o_pos, cnt = q.popleft()
             
@@ -40,10 +38,6 @@ def solution(places):
                         return 0
         return 1
     
-    for place in places:
-        if check(place) == 0:
-            answer.append(0)
-        else:
-            answer.append(1)
+    answer = [check(place) for place in places]
             
     return answer
