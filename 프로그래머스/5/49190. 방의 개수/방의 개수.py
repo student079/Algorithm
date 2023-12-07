@@ -3,31 +3,32 @@ from collections import defaultdict
 def solution(arrows):
     answer = 0
     
-    # 뭔가 2차원배열 쓰는 건 아닌것 같고
-    # 대각선 교차도 포함 -> 2칸 씩 이동 좌표 늘려서 
-    # 방문했던 거 또 방문에다가 처음 경로면 방 +
-    # 경로랑 정점 저장 (무방향이라 양쪽 다 저장)
+    # 정수아닌 부분이 겹칠 수도 있으니 *2
+    # 좌표 넣다가 좌표 겹치고 들어온 좌표도 똑같으면 안해도됨
+    # 들어온 좌표가 다르면 +1
     
-    visited = defaultdict(list)
     dx = (-1,-1,0,1,1,1,0,-1)
-    dy = (0,1,1,1,0,-1,-1,-1)
-    x,y = 0,0
+    dy = (0, 1, 1, 1, 0, -1, -1,-1)
+    
+    # 딕셔너리로 저장하자 들어온 좌표를
+    x,y = 0, 0
+    p_visited = defaultdict(list)
+    p_visited[(x,y)].append((x,y))
     for arrow in arrows:
         for _ in range(2):
-            nx = x+dx[arrow]
-            ny = y+dy[arrow]
             
-            # 이 정점은 방문했었지만 이 경로로 방문했던 적 없음
-            if (nx,ny) in visited and (x,y) not in visited[(nx,ny)]:
-                answer+=1
-                visited[(nx,ny)].append((x,y))
-                visited[(x,y)].append((nx,ny))
-            elif (nx,ny) not in visited:
-                visited[(nx,ny)].append((x,y))
-                visited[(x,y)].append((nx,ny))
+            nx = x + dx[arrow]
+            ny = y + dy[arrow]
             
-            x = nx
-            y = ny
-    
+            if (nx, ny) in p_visited.keys():
+                if (x,y) not in p_visited[(nx,ny)]:
+                    answer += 1
+                    p_visited[(nx, ny)].append((x, y))
+                    p_visited[(x,y)].append((nx,ny))
+            else:
+                p_visited[(nx, ny)].append((x, y))
+                p_visited[(x,y)].append((nx,ny))
+                
+            x,y = nx, ny
     
     return answer
