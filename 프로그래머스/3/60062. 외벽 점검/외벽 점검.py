@@ -20,7 +20,7 @@ def solution(n, weak, dist):
                 if pos < weak[i + W - 1]:
                     cnt += 1
                     if cnt > answer:
-                        continue
+                        break
                     # 현재 위치보다 멀리 있는 취약지점 중 가장 가까운 위치로
                     pos = [w for w in weak[i+1:i+W]
                                 if w > pos][0]
