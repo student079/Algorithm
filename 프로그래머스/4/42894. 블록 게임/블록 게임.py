@@ -1,3 +1,5 @@
+# 다시 풀어보기
+
 from collections import deque
 
 def solution(board):
