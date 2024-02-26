@@ -6,21 +6,18 @@ N, K = map(int,sys.stdin.readline().rstrip().split())
 
 contries = []
 for _ in range(N):
-    contries.append(tuple(map(int,sys.stdin.readline().rstrip().split())))
+    idx, gold, silver, bronze = map(int,sys.stdin.readline().rstrip().split())
+
+    if idx == K:
+        tGold, tSilver, tBronze = gold, silver, bronze
+
+    contries.append((idx, gold, silver, bronze))
 
 contries.sort(key = lambda x: (-x[1], -x[2], -x[3]))
 
-rank = 1
-for i in range(1,len(contries)):
+for i in range(len(contries)):
     idx, gold, silver, bronze = contries[i]
-    preIdx, preGold, preSilver, preBronze = contries[i-1]
 
-    rank += 1
-    if (gold, silver, bronze) == (preGold, preSilver, preBronze):
-        rank -= 1
-    
-    if idx == K:
-        print(rank)
+    if (gold, silver, bronze) == (tGold, tSilver, tBronze):
+        print(i+1)
         break
-
-    
