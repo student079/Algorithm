@@ -17,6 +17,8 @@ def solution(board):
         cost, direction, xy = heapq.heappop(q)
         
         x, y = xy
+        if x == bLen -1 and y == bLen - 1:
+            break
         
         for k in range(4):
             nx = x + dx[k]
