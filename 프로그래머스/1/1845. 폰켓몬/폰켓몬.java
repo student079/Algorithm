@@ -9,17 +9,10 @@ import java.util.stream.Collectors;
 class Solution {
     public int solution(int[] nums) {
         
-        int N = nums.length;
-        
-        int count = Arrays.stream(nums)
+        return Arrays.stream(nums)
             .boxed()
-            .collect(Collectors.toSet())
-            .size();
-        
-        if (count <= N/2) {
-            return count;
-        } else {
-            return N/2;
-        }
+            .collect(Collectors.collectingAndThen(
+                Collectors.toSet(), set -> Integer.min(set.size(), nums.length / 2)
+            ));
     }
 }
