@@ -1,26 +1,21 @@
 import java.util.*;
-import java.io.*;
 
 public class Solution {
-    public Stack<Integer> solution(int []arr)  throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-        Stack<Integer> stack = new Stack<>();
-
-        for (int a: arr) {
-            if (!stack.empty()) {
-                if (!stack.peek().equals(a)) {
-                    stack.push(a);
-                }
-            } else {
-                stack.push(a);
+    public int[] solution(int []arr) {
+        
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = 0; i < arr.length ; i++) {
+            if (st.empty() || st.peek() != arr[i]) {
+                st.push(arr[i]);
             }
         }
-        // while (!stack.empty()) {
-        //     bufferedWriter.write(stack.pop());
-        //     bufferedWriter.write("\n");
-        //     bufferedWriter.flush();
-        // }
-        bufferedWriter.close();
-        return stack;
+        
+        int[] answer = new int[st.size()];
+        for (int i = st.size() - 1 ; i >= 0 ; i--) {
+            answer[i] = st.pop();
+        }
+
+        return answer;
     }
 }
