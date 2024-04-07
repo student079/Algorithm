@@ -1,52 +1,58 @@
+# 회전, 대칭
+# N, M 4 ~ 500
+# 250000 이십오만 * 나올 수 있는 도형 개수 19개
+# 4750000 5백만 가능
+# 다 돌면서 도형에 넣기
+
 import sys
 
-def dfs(x, y, step, total):
-    global answer
-
-    # 종료조건1) 보드의 최대값이 더해진다 해도 answer보다 작으면 탐색 종료
-    if total + max_val*(4-step) <= answer:
-        return
-    
-    # 종료조건2) 4개 다 봤ㅇ면 종료
-    if step == 4:
-        answer = max(answer, total)
-        return
-    
-    for dx, dy in d:
-        nx = x + dx
-        ny = y + dy
-
-        if 0 <= nx < N and 0 <= ny < M and not visited[nx][ny]:
-            # 'ㅏ'모양도 봐주기 위해서 두번째 보는 거면 현재에서 다시 dfs호출출
-            if step == 2:
-                visited[nx][ny] = True
-                dfs(x,y,step + 1,total + board[nx][ny])
-                visited[nx][ny] = False
-
-            
-            visited[nx][ny] = True
-            dfs(nx,ny,step+1,total+board[nx][ny])
-            visited[nx][ny] = False
-    
-
-
-
-N,M = map(int,sys.stdin.readline().rstrip('\n').split())
-
+N, M = map(int, sys.stdin.readline().rstrip().split())
 board = []
 for _ in range(N):
-    board.append(list(map(int,sys.stdin.readline().rstrip('\n').split())))
+    board.append(list(map(int, sys.stdin.readline().rstrip().split())))
 
-max_val = max(map(max,board))
+# 도형
+one = [((0 ,0), (0, 1), (0, 2), (0, 3)), ((0,0), (1, 0), (2, 0), (3, 0))] # 2개
+two = [((0, 0), (0, 1), (1, 0), (1, 1))] # 1개
+three = [((0 ,0), (1, 0), (2, 0), (2, 1)), ((0,0), (1,0 ), (2,0), (2, -1)),
+         ((0,0), (1, 0), (0,1), (0, 2)), ((0,0), (1,0), (1,1),(1,2)),
+         ((0,0), (0,1), (1,1), (2,1)), ((0,0), (1, 0), (2, 0), (0,1)),
+         ((1,0), (1,1), (1,2), (0,2)), ((0,0), (0,1), (0,2), (1,2))] # 8개
+four = [((0, 0), (1, 0), (1, 1), (2, 1)), ((0,1), (1,1), (1, 0), (2,0)),
+        ((1,0), (1, 1), (0,1), (0,2)), ((0,0), (0,1), (1,1), (1, 2))] #  4개
+five = [((0, 0), (0, 1), (0, 2), (1, 1)), ((1,0), (0,1), (1,1), (2, 1)),
+        ((0,1), (1,0), (1,1), (1, 2)), ((0,0), (1,0), (2, 0), (1, 1))] #  4개
+
+tt = []
+for i in one:
+    tt.append(i)
+for i in two:
+    tt.append(i)
+for i in three:
+    tt.append(i)
+for i in four:
+    tt.append(i)
+for i in five:
+    tt.append(i)
+
 answer = 0
-d = [(1,0),(0,1),(-1,0),(0,-1)]
-visited = [[False] * M for _ in range(N)] # 탐색여부 확인용
-answer = 0
+
+def check(i, j):
+    global answer
+    for t in tt:
+        s = 0
+        for k in t:
+            ni = i + k[0]
+            nj = j + k[1]
+
+            if not ( 0<= ni < N and 0 <= nj < M):
+                break
+
+            s += board[ni][nj]
+        answer = max(answer, s)
 
 for i in range(N):
     for j in range(M):
-        visited[i][j] = True
-        dfs(i,j,1,board[i][j])
-        visited[i][j] = False
+        check(i, j)
 
 print(answer)
