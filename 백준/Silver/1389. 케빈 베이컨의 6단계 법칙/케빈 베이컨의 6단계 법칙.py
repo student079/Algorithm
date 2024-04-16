@@ -27,6 +27,9 @@ def dijkstra(start) -> int:
 
     while q:
         dis, node = heapq.heappop(q)
+
+        if temp[node] < dis:
+            continue
         
         for toNode in graph[node]:
             if temp[toNode] > dis + 1:
