@@ -26,7 +26,7 @@ for y, sx, ex in holeList:
     # 왼쪽 오른쪽 구멍 깊이비교 후 물 빼기
     # 왼쪽
     minY = y
-    for i in range(sx):
+    for i in range(sx-1,-1,-1):
         minY = min(minY, depthList[i])
         waterList[i] = min(waterList[i], depthList[i] -minY)
 
