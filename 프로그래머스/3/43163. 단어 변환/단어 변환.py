@@ -20,18 +20,12 @@ def solution(begin, target, words):
     
     q = deque()
     q.append((begin, 0))
-    visited = defaultdict(lambda: False)
+    visited = defaultdict(int)
     
-    while q:
-        word, count = q.popleft()
+#     while q:
+#         word, count = q.popleft()
         
-        if word == target:
-            answer = count
-            break
-        
-        for cand in words:
-            if not visited[cand] and diff(word,cand) == 1:
-                q.append((cand, count+1))
-                visited[cand] = True
+#         for cand in words:
+#             if visited[cnad]
     
     return answer
