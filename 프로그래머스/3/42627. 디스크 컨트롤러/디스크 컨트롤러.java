@@ -16,7 +16,7 @@ class Solution {
         
         // 시간별로 요청처리
         int jobIdx = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
         while (count < jobLength) {
             while (jobIdx < jobLength && jobs[jobIdx][0] <= end) {
                 pq.add(jobs[jobIdx++]);
